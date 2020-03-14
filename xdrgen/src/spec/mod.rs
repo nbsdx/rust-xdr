@@ -36,19 +36,19 @@ impl ToTokens for Derives {
 
         let mut der = Vec::new();
 
-        if self.contains(COPY) {
+        if self.contains(Self::COPY) {
             der.push(quote!(Copy))
         }
-        if self.contains(CLONE) {
+        if self.contains(Self::CLONE) {
             der.push(quote!(Clone))
         }
-        if self.contains(DEBUG) {
+        if self.contains(Self::DEBUG) {
             der.push(quote!(Debug))
         }
-        if self.contains(EQ) {
+        if self.contains(Self::EQ) {
             der.push(quote!(Eq))
         }
-        if self.contains(PARTIALEQ) {
+        if self.contains(Self::PARTIALEQ) {
             der.push(quote!(PartialEq))
         }
 
@@ -238,7 +238,7 @@ impl Type {
             &Array(ref ty, ref len) => {
                 let ty = ty.as_ref();
                 let set = match ty {
-                    &Opaque | &String => EQ | PARTIALEQ | COPY | CLONE | DEBUG,
+                    &Opaque | &String => Derives::EQ | Derives::PARTIALEQ | Derives::COPY | Derives::CLONE | Derives::DEBUG,
                     ref ty => ty.derivable(symtab, Some(memo)),
                 };
                 match len.as_i64(symtab) {
@@ -248,9 +248,9 @@ impl Type {
             }
             &Flex(ref ty, ..) => {
                 let set = ty.derivable(symtab, Some(memo));
-                set & !COPY // no Copy, everything else OK
+                set & !Derives::COPY // no Copy, everything else OK
             }
-            &Enum(_) => EQ | PARTIALEQ | COPY | CLONE | DEBUG,
+            &Enum(_) => Derives::EQ | Derives::PARTIALEQ | Derives::COPY | Derives::CLONE | Derives::DEBUG,
             &Option(ref ty) => ty.derivable(symtab, Some(memo)),
             &Struct(ref fields) => {
                 fields.iter().fold(Derives::all(), |a, f| {
@@ -277,10 +277,10 @@ impl Type {
                 }
             }
 
-            &Float | &Double => PARTIALEQ | COPY | CLONE | DEBUG,
+            &Float | &Double => Derives::PARTIALEQ | Derives::COPY | Derives::CLONE | Derives::DEBUG,
             ty if ty.is_prim(symtab) => Derives::all(),
 
-            _ => Derives::all() & !COPY,
+            _ => Derives::all() & !Derives::COPY,
         };
 
         memo.insert(self.clone(), set);
