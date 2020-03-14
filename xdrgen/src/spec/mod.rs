@@ -8,7 +8,7 @@ use quote::{self, ToTokens, Tokens};
 
 mod xdr_nom;
 
-use xdr::Error;
+use crate::xdr::Error;
 
 pub type Result<T> = result::Result<T, Error>;
 
@@ -73,7 +73,7 @@ lazy_static! {
             "while", "yield",
         ];
 
-        kws.into_iter().map(|x| *x).collect()
+        kws.iter().map(|x| *x).collect()
     };
 }
 
@@ -222,7 +222,7 @@ impl Type {
         use self::Type::*;
         let mut memoset = HashMap::new();
 
-        let mut memo = match memo {
+        let memo = match memo {
             None => &mut memoset,
             Some(m) => m,
         };
