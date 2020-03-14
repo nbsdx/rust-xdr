@@ -1,5 +1,7 @@
 # Rust XDR library
 
+Updated to support Rust 2018 Edition.
+
 [![Build Status](https://travis-ci.org/jsgf/rust-xdr.svg?branch=master)](https://travis-ci.org/jsgf/rust-xdr)
 [![Crates.io](https://img.shields.io/crates/v/xdr-codec.svg)](https://crates.io/crates/xdr-codec/)
 
