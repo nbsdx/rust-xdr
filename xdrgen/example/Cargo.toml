@@ -3,6 +3,7 @@ name = "example"
 version = "0.1.0"
 authors = ["Jeremy Fitzhardinge <jeremy@goop.org>"]
 build = "build.rs"
+edition = "2018"
 
 [[bin]]
 name = "simple"

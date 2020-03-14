@@ -32,10 +32,10 @@ use std::fmt::Display;
 use std::env;
 use std::result;
 
-use xdr::Result;
+use crate::xdr::Result;
 
 mod spec;
-use spec::{Emit, Emitpack, Symtab};
+use crate::spec::{Emit, Emitpack, Symtab};
 
 fn result_option<T, E>(resopt: result::Result<Option<T>, E>) -> Option<result::Result<T, E>> {
     match resopt {

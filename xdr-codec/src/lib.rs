@@ -32,7 +32,7 @@ use byteorder::{BigEndian, ReadBytesExt, WriteBytesExt};
 pub mod record;
 
 mod error;
-pub use error::*;
+pub use crate::error::*;
 
 #[cfg(test)]
 mod test;
@@ -217,7 +217,7 @@ where
 {
     let mut rsz = 0;
     let sz = min(arraysz, array.len());
- 
+
     // If we fail part way through then return the error and the index we got up to
     // so we can clean up the entries we did initialize.
     let res = (|| {
