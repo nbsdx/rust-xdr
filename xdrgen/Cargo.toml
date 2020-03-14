@@ -9,6 +9,7 @@ documentation = "https://docs.rs/xdrgen/"
 readme = "README.md"
 keywords = ["encoding", "protocol", "xdr", "rfc4506", "serialization"]
 include = [ "src/**/*.rs", "tests/**/*.rs", "*.md", "Cargo.toml"  ]
+edition = "2018"
 
 [[bin]]
 name = "xdrgen"
